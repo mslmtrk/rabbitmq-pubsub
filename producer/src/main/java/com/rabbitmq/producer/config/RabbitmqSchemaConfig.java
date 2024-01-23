@@ -13,9 +13,9 @@ public class RabbitmqSchemaConfig {
     @Bean
     Declarables creatRabbitmqSchema() {
         return new Declarables(
-                new DirectExchange("x.exchange", true, false, null),
-                new Queue("q.queue"),
-                new Binding("q.queue", Binding.DestinationType.QUEUE, "x.exchange", "routing-key", null)
+                new DirectExchange("x.example", true, false, null),
+                new Queue("q.example"),
+                new Binding("q.example", Binding.DestinationType.QUEUE, "x.example", "routing-key", null)
         );
     }
 }

@@ -1,5 +1,6 @@
 package com.rabbitmq.producer;
 
+import com.rabbitmq.producer.entity.Message;
 import com.rabbitmq.producer.producer.Producer;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class ProducerApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		producer.sendMessage("test message");
+
+		for (int i = 0; i < 1000; i++) {
+			producer.sendMessages(new Message(i, "Dummy message."));
+		}
 	}
 }

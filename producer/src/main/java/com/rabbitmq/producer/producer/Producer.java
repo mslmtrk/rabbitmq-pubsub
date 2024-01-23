@@ -1,5 +1,6 @@
 package com.rabbitmq.producer.producer;
 
+import com.rabbitmq.producer.entity.Message;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,7 @@ public class Producer {
 
     private RabbitTemplate rabbitTemplate;
 
-    public void sendMessage(String message) {
-        rabbitTemplate.convertAndSend("x.example", "example", message);
+    public void sendMessages(Message message) {
+        rabbitTemplate.convertAndSend("x.example", "routing-key", message);
     }
 }
