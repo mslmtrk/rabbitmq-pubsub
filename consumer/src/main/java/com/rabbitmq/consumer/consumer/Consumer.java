@@ -1,5 +1,6 @@
 package com.rabbitmq.consumer.consumer;
 
+import com.rabbitmq.consumer.entity.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -11,7 +12,7 @@ public class Consumer {
     private static final Logger LOGGER = LoggerFactory.getLogger(Consumer.class);
 
     @RabbitListener(queues = "q.example", concurrency = "2", containerFactory = "prefetchTwentyContainerFactory")
-    public void exampleListener(String message) {
-        LOGGER.info(message);
+    public void exampleListener(Message message) {
+        LOGGER.info("Message consumed with id {}: {}", message.getId(), message.getContent());
     }
 }
