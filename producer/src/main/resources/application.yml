@@ -4,9 +4,3 @@ spring:
     port: 5672
     username: guest
     password: guest
-
-logging:
-  level:
-    org:
-      springframework:
-        amqp: DEBUG
