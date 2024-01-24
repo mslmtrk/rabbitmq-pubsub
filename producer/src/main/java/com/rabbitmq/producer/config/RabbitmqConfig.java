@@ -2,16 +2,19 @@ package com.rabbitmq.producer.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.Declarables;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitmqConfig {
+
+	public static final String EXCHANGE_NAME = "x.example";
+
+	public static final String QUEUE_NAME = "q.example";
+
+	public static final String ROUTING_KEY = "routing-key";
 
 	@Bean
 	ObjectMapper objectMapper() {
@@ -24,11 +27,12 @@ public class RabbitmqConfig {
 	}
 
 	@Bean
-	Declarables creatRabbitmqSchema() {
-		return new Declarables(
-				new DirectExchange("x.example", true, false, null),
-				new Queue("q.example"),
-				new Binding("q.example", Binding.DestinationType.QUEUE, "x.example", "routing-key", null)
-		);
+	Declarables createRabbitmqSchema() {
+
+		DirectExchange exchange = ExchangeBuilder.directExchange(EXCHANGE_NAME).durable(true).build();
+		Queue queue = QueueBuilder.durable(QUEUE_NAME).build();
+		Binding binding = BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
+
+		return new Declarables(exchange, queue, binding);
 	}
 }

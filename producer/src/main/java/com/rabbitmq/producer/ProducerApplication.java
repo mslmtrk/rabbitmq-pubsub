@@ -2,7 +2,6 @@ package com.rabbitmq.producer;
 
 import com.rabbitmq.producer.entity.Message;
 import com.rabbitmq.producer.producer.Producer;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
